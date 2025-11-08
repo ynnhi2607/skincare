@@ -1,56 +1,56 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
-import Input from '../../../components/ui/Input';
-import Select from '../../../components/ui/Select';
-import { Checkbox } from '../../../components/ui/Checkbox';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
+import Input from "../../../components/ui/Input";
+import Select from "../../../components/ui/Select";
+import { Checkbox } from "../../../components/ui/Checkbox";
 
 const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
   const [localPreferences, setLocalPreferences] = useState(preferences);
   const [hasChanges, setHasChanges] = useState(false);
 
   const languageOptions = [
-    { value: 'vi', label: 'Tiếng Việt' },
-    { value: 'en', label: 'English' }
+    { value: "vi", label: "Tiếng Việt" },
+    { value: "en", label: "English" },
   ];
 
   const currencyOptions = [
-    { value: 'vnd', label: 'VND (₫)' },
-    { value: 'usd', label: 'USD ($)' }
+    { value: "vnd", label: "VND (₫)" },
+    { value: "usd", label: "USD ($)" },
   ];
 
   const themeOptions = [
-    { value: 'light', label: 'Sáng' },
-    { value: 'dark', label: 'Tối' },
-    { value: 'auto', label: 'Tự động' }
+    { value: "light", label: "Sáng" },
+    { value: "dark", label: "Tối" },
+    { value: "auto", label: "Tự động" },
   ];
 
   const handlePreferenceChange = (key, value) => {
-    setLocalPreferences(prev => ({
+    setLocalPreferences((prev) => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
     setHasChanges(true);
   };
 
   const handleNotificationChange = (key, checked) => {
-    setLocalPreferences(prev => ({
+    setLocalPreferences((prev) => ({
       ...prev,
       notifications: {
         ...prev?.notifications,
-        [key]: checked
-      }
+        [key]: checked,
+      },
     }));
     setHasChanges(true);
   };
 
   const handlePrivacyChange = (key, checked) => {
-    setLocalPreferences(prev => ({
+    setLocalPreferences((prev) => ({
       ...prev,
       privacy: {
         ...prev?.privacy,
-        [key]: checked
-      }
+        [key]: checked,
+      },
     }));
     setHasChanges(true);
   };
@@ -66,12 +66,12 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
   };
 
   const handleExportData = () => {
-    console.log('Exporting user data...');
+    console.log("Exporting user data...");
     // Mock export functionality
   };
 
   const handleDeleteAccount = () => {
-    console.log('Delete account requested...');
+    console.log("Delete account requested...");
     // Mock delete account functionality
   };
 
@@ -104,33 +104,35 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
           <Icon name="Settings" size={20} className="text-primary" />
           Cài đặt chung
         </h3>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Select
             label="Ngôn ngữ"
             options={languageOptions}
             value={localPreferences?.language}
-            onChange={(value) => handlePreferenceChange('language', value)}
+            onChange={(value) => handlePreferenceChange("language", value)}
           />
-          
+
           <Select
             label="Đơn vị tiền tệ"
             options={currencyOptions}
             value={localPreferences?.currency}
-            onChange={(value) => handlePreferenceChange('currency', value)}
+            onChange={(value) => handlePreferenceChange("currency", value)}
           />
-          
+
           <Select
             label="Giao diện"
             options={themeOptions}
             value={localPreferences?.theme}
-            onChange={(value) => handlePreferenceChange('theme', value)}
+            onChange={(value) => handlePreferenceChange("theme", value)}
           />
-          
+
           <Input
             label="Múi giờ"
             value={localPreferences?.timezone}
-            onChange={(e) => handlePreferenceChange('timezone', e?.target?.value)}
+            onChange={(e) =>
+              handlePreferenceChange("timezone", e?.target?.value)
+            }
             placeholder="Asia/Ho_Chi_Minh"
           />
         </div>
@@ -141,41 +143,51 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
           <Icon name="Bell" size={20} className="text-secondary" />
           Thông báo
         </h3>
-        
+
         <div className="space-y-4">
           <Checkbox
             label="Thông báo email"
             description="Nhận thông báo về routine và phân tích mới"
             checked={localPreferences?.notifications?.email}
-            onChange={(e) => handleNotificationChange('email', e?.target?.checked)}
+            onChange={(e) =>
+              handleNotificationChange("email", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Thông báo push"
             description="Nhận thông báo trên trình duyệt"
             checked={localPreferences?.notifications?.push}
-            onChange={(e) => handleNotificationChange('push', e?.target?.checked)}
+            onChange={(e) =>
+              handleNotificationChange("push", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Nhắc nhở routine"
             description="Nhận nhắc nhở thực hiện routine hàng ngày"
             checked={localPreferences?.notifications?.routineReminders}
-            onChange={(e) => handleNotificationChange('routineReminders', e?.target?.checked)}
+            onChange={(e) =>
+              handleNotificationChange("routineReminders", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Cập nhật sản phẩm"
             description="Thông báo khi có sản phẩm mới phù hợp"
             checked={localPreferences?.notifications?.productUpdates}
-            onChange={(e) => handleNotificationChange('productUpdates', e?.target?.checked)}
+            onChange={(e) =>
+              handleNotificationChange("productUpdates", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Newsletter"
             description="Nhận tin tức và mẹo chăm sóc da"
             checked={localPreferences?.notifications?.newsletter}
-            onChange={(e) => handleNotificationChange('newsletter', e?.target?.checked)}
+            onChange={(e) =>
+              handleNotificationChange("newsletter", e?.target?.checked)
+            }
           />
         </div>
       </div>
@@ -185,34 +197,42 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
           <Icon name="Shield" size={20} className="text-success" />
           Quyền riêng tư
         </h3>
-        
+
         <div className="space-y-4">
           <Checkbox
             label="Hồ sơ công khai"
             description="Cho phép người khác xem hồ sơ của bạn"
             checked={localPreferences?.privacy?.publicProfile}
-            onChange={(e) => handlePrivacyChange('publicProfile', e?.target?.checked)}
+            onChange={(e) =>
+              handlePrivacyChange("publicProfile", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Chia sẻ routine"
             description="Cho phép chia sẻ routine với cộng đồng"
             checked={localPreferences?.privacy?.shareRoutines}
-            onChange={(e) => handlePrivacyChange('shareRoutines', e?.target?.checked)}
+            onChange={(e) =>
+              handlePrivacyChange("shareRoutines", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Phân tích sử dụng"
             description="Giúp cải thiện ứng dụng bằng dữ liệu sử dụng"
             checked={localPreferences?.privacy?.analytics}
-            onChange={(e) => handlePrivacyChange('analytics', e?.target?.checked)}
+            onChange={(e) =>
+              handlePrivacyChange("analytics", e?.target?.checked)
+            }
           />
-          
+
           <Checkbox
             label="Quảng cáo cá nhân hóa"
             description="Hiển thị quảng cáo phù hợp với sở thích"
             checked={localPreferences?.privacy?.personalizedAds}
-            onChange={(e) => handlePrivacyChange('personalizedAds', e?.target?.checked)}
+            onChange={(e) =>
+              handlePrivacyChange("personalizedAds", e?.target?.checked)
+            }
           />
         </div>
       </div>
@@ -222,7 +242,7 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
           <Icon name="Database" size={20} className="text-warning" />
           Quản lý dữ liệu
         </h3>
-        
+
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
             <div>
@@ -242,7 +262,7 @@ const AccountPreferencesTab = ({ preferences, onUpdatePreferences }) => {
               Xuất dữ liệu
             </Button>
           </div>
-          
+
           <div className="flex items-center justify-between p-4 bg-destructive/5 rounded-lg border border-destructive/20">
             <div>
               <h4 className="font-caption font-medium text-foreground mb-1">

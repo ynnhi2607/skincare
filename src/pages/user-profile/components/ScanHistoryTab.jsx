@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Image from "../../../components/AppImage";
+import Button from "../../../components/ui/Button";
 
 const ScanHistoryTab = ({ scanHistory }) => {
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [sortBy, setSortBy] = useState('date');
+  const [sortBy, setSortBy] = useState("date");
 
   const handleSelectItem = (id) => {
-    setSelectedItems(prev => 
-      prev?.includes(id) 
-        ? prev?.filter(item => item !== id)
-        : [...prev, id]
+    setSelectedItems((prev) =>
+      prev?.includes(id) ? prev?.filter((item) => item !== id) : [...prev, id]
     );
   };
 
@@ -21,40 +19,48 @@ const ScanHistoryTab = ({ scanHistory }) => {
     if (selectedItems?.length === scanHistory?.length) {
       setSelectedItems([]);
     } else {
-      setSelectedItems(scanHistory?.map(item => item?.id));
+      setSelectedItems(scanHistory?.map((item) => item?.id));
     }
   };
 
   const handleDeleteSelected = () => {
     // Mock delete functionality
-    console.log('Deleting items:', selectedItems);
+    console.log("Deleting items:", selectedItems);
     setSelectedItems([]);
   };
 
   const getSafetyColor = (safety) => {
     switch (safety) {
-      case 'safe': return 'text-success';
-      case 'neutral': return 'text-warning';
-      case 'risky': return 'text-destructive';
-      default: return 'text-muted-foreground';
+      case "safe":
+        return "text-success";
+      case "neutral":
+        return "text-warning";
+      case "risky":
+        return "text-destructive";
+      default:
+        return "text-muted-foreground";
     }
   };
 
   const getSafetyBg = (safety) => {
     switch (safety) {
-      case 'safe': return 'bg-success/10';
-      case 'neutral': return 'bg-warning/10';
-      case 'risky': return 'bg-destructive/10';
-      default: return 'bg-muted/10';
+      case "safe":
+        return "bg-success/10";
+      case "neutral":
+        return "bg-warning/10";
+      case "risky":
+        return "bg-destructive/10";
+      default:
+        return "bg-muted/10";
     }
   };
 
   const sortedHistory = [...scanHistory]?.sort((a, b) => {
-    if (sortBy === 'date') {
+    if (sortBy === "date") {
       return new Date(b.scanDate) - new Date(a.scanDate);
-    } else if (sortBy === 'name') {
+    } else if (sortBy === "name") {
       return a?.productName?.localeCompare(b?.productName);
-    } else if (sortBy === 'safety') {
+    } else if (sortBy === "safety") {
       const safetyOrder = { safe: 0, neutral: 1, risky: 2 };
       return safetyOrder?.[a?.safetyLevel] - safetyOrder?.[b?.safetyLevel];
     }
@@ -70,12 +76,18 @@ const ScanHistoryTab = ({ scanHistory }) => {
             variant="ghost"
             size="sm"
             onClick={handleSelectAll}
-            iconName={selectedItems?.length === scanHistory?.length ? "CheckSquare" : "Square"}
+            iconName={
+              selectedItems?.length === scanHistory?.length
+                ? "CheckSquare"
+                : "Square"
+            }
             iconPosition="left"
           >
-            {selectedItems?.length === scanHistory?.length ? 'Bỏ chọn tất cả' : 'Chọn tất cả'}
+            {selectedItems?.length === scanHistory?.length
+              ? "Bỏ chọn tất cả"
+              : "Chọn tất cả"}
           </Button>
-          
+
           {selectedItems?.length > 0 && (
             <Button
               variant="destructive"
@@ -90,7 +102,9 @@ const ScanHistoryTab = ({ scanHistory }) => {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground font-caption">Sắp xếp:</span>
+          <span className="text-sm text-muted-foreground font-caption">
+            Sắp xếp:
+          </span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e?.target?.value)}
@@ -117,7 +131,7 @@ const ScanHistoryTab = ({ scanHistory }) => {
             </p>
             <Button
               variant="default"
-              onClick={() => navigate('/product-upload-scanner')}
+              onClick={() => navigate("/product-upload-scanner")}
               iconName="Plus"
               iconPosition="left"
             >
@@ -129,7 +143,9 @@ const ScanHistoryTab = ({ scanHistory }) => {
             <div
               key={item?.id}
               className={`glass-card p-4 transition-smooth hover:shadow-glow ${
-                selectedItems?.includes(item?.id) ? 'ring-2 ring-primary/50' : ''
+                selectedItems?.includes(item?.id)
+                  ? "ring-2 ring-primary/50"
+                  : ""
               }`}
             >
               <div className="flex items-start gap-4">
@@ -139,9 +155,17 @@ const ScanHistoryTab = ({ scanHistory }) => {
                   className="mt-1 transition-smooth hover:scale-110"
                 >
                   <Icon
-                    name={selectedItems?.includes(item?.id) ? "CheckSquare" : "Square"}
+                    name={
+                      selectedItems?.includes(item?.id)
+                        ? "CheckSquare"
+                        : "Square"
+                    }
                     size={20}
-                    className={selectedItems?.includes(item?.id) ? "text-primary" : "text-muted-foreground"}
+                    className={
+                      selectedItems?.includes(item?.id)
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    }
                   />
                 </button>
 
@@ -165,11 +189,15 @@ const ScanHistoryTab = ({ scanHistory }) => {
                         {item?.brandName}
                       </p>
                     </div>
-                    
-                    <div className={`px-2 py-1 rounded-full text-xs font-caption font-medium ${getSafetyBg(item?.safetyLevel)} ${getSafetyColor(item?.safetyLevel)}`}>
-                      {item?.safetyLevel === 'safe' && 'An toàn'}
-                      {item?.safetyLevel === 'neutral' && 'Trung tính'}
-                      {item?.safetyLevel === 'risky' && 'Có rủi ro'}
+
+                    <div
+                      className={`px-2 py-1 rounded-full text-xs font-caption font-medium ${getSafetyBg(
+                        item?.safetyLevel
+                      )} ${getSafetyColor(item?.safetyLevel)}`}
+                    >
+                      {item?.safetyLevel === "safe" && "An toàn"}
+                      {item?.safetyLevel === "neutral" && "Trung tính"}
+                      {item?.safetyLevel === "risky" && "Có rủi ro"}
                     </div>
                   </div>
 
@@ -189,7 +217,11 @@ const ScanHistoryTab = ({ scanHistory }) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => navigate('/product-analysis-results', { state: { productData: item } })}
+                        onClick={() =>
+                          navigate("/product-analysis-results", {
+                            state: { productData: item },
+                          })
+                        }
                         iconName="Eye"
                         iconPosition="left"
                       >
@@ -198,7 +230,11 @@ const ScanHistoryTab = ({ scanHistory }) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => navigate('/routine-recommendations', { state: { productData: item } })}
+                        onClick={() =>
+                          navigate("/routine-recommendations", {
+                            state: { productData: item },
+                          })
+                        }
                         iconName="Sparkles"
                         iconPosition="left"
                       >

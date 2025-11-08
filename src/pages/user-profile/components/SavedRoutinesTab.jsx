@@ -1,32 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
 
 const SavedRoutinesTab = ({ savedRoutines }) => {
   const navigate = useNavigate();
   const [selectedRoutines, setSelectedRoutines] = useState([]);
 
   const handleSelectRoutine = (id) => {
-    setSelectedRoutines(prev => 
-      prev?.includes(id) 
-        ? prev?.filter(item => item !== id)
-        : [...prev, id]
+    setSelectedRoutines((prev) =>
+      prev?.includes(id) ? prev?.filter((item) => item !== id) : [...prev, id]
     );
   };
 
   const handleDeleteSelected = () => {
-    console.log('Deleting routines:', selectedRoutines);
+    console.log("Deleting routines:", selectedRoutines);
     setSelectedRoutines([]);
   };
 
   const handleShareRoutine = (routine) => {
-    console.log('Sharing routine:', routine?.id);
+    console.log("Sharing routine:", routine?.id);
     // Mock share functionality
   };
 
   const handleExportRoutine = (routine) => {
-    console.log('Exporting routine:', routine?.id);
+    console.log("Exporting routine:", routine?.id);
     // Mock export functionality
   };
 
@@ -64,7 +62,7 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
             </p>
             <Button
               variant="default"
-              onClick={() => navigate('/product-upload-scanner')}
+              onClick={() => navigate("/product-upload-scanner")}
               iconName="Plus"
               iconPosition="left"
             >
@@ -76,7 +74,9 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
             <div
               key={routine?.id}
               className={`glass-card p-6 transition-smooth hover:shadow-glow ${
-                selectedRoutines?.includes(routine?.id) ? 'ring-2 ring-primary/50' : ''
+                selectedRoutines?.includes(routine?.id)
+                  ? "ring-2 ring-primary/50"
+                  : ""
               }`}
             >
               <div className="flex items-start gap-4">
@@ -86,9 +86,17 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                   className="mt-1 transition-smooth hover:scale-110"
                 >
                   <Icon
-                    name={selectedRoutines?.includes(routine?.id) ? "CheckSquare" : "Square"}
+                    name={
+                      selectedRoutines?.includes(routine?.id)
+                        ? "CheckSquare"
+                        : "Square"
+                    }
                     size={20}
-                    className={selectedRoutines?.includes(routine?.id) ? "text-primary" : "text-muted-foreground"}
+                    className={
+                      selectedRoutines?.includes(routine?.id)
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    }
                   />
                 </button>
 
@@ -115,11 +123,16 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                       </div>
                     </div>
 
-                    <div className={`px-3 py-1 rounded-full text-xs font-caption font-medium ${
-                      routine?.type === 'complete' 
-                        ? 'bg-primary/10 text-primary' :'bg-secondary/10 text-secondary'
-                    }`}>
-                      {routine?.type === 'complete' ? 'Routine đầy đủ' : 'Routine tối giản'}
+                    <div
+                      className={`px-3 py-1 rounded-full text-xs font-caption font-medium ${
+                        routine?.type === "complete"
+                          ? "bg-primary/10 text-primary"
+                          : "bg-secondary/10 text-secondary"
+                      }`}
+                    >
+                      {routine?.type === "complete"
+                        ? "Routine đầy đủ"
+                        : "Routine tối giản"}
                     </div>
                   </div>
 
@@ -134,12 +147,17 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                         </span>
                       </div>
                       <div className="space-y-2">
-                        {routine?.morningSteps?.slice(0, 3)?.map((step, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 bg-warning rounded-full flex-shrink-0" />
-                            <span className="truncate">{step}</span>
-                          </div>
-                        ))}
+                        {routine?.morningSteps
+                          ?.slice(0, 3)
+                          ?.map((step, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 text-sm text-muted-foreground"
+                            >
+                              <div className="w-1.5 h-1.5 bg-warning rounded-full flex-shrink-0" />
+                              <span className="truncate">{step}</span>
+                            </div>
+                          ))}
                         {routine?.morningSteps?.length > 3 && (
                           <div className="text-xs text-muted-foreground font-caption">
                             +{routine?.morningSteps?.length - 3} bước khác
@@ -157,12 +175,17 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                         </span>
                       </div>
                       <div className="space-y-2">
-                        {routine?.eveningSteps?.slice(0, 3)?.map((step, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                            <span className="truncate">{step}</span>
-                          </div>
-                        ))}
+                        {routine?.eveningSteps
+                          ?.slice(0, 3)
+                          ?.map((step, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 text-sm text-muted-foreground"
+                            >
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                              <span className="truncate">{step}</span>
+                            </div>
+                          ))}
                         {routine?.eveningSteps?.length > 3 && (
                           <div className="text-xs text-muted-foreground font-caption">
                             +{routine?.eveningSteps?.length - 3} bước khác
@@ -178,7 +201,11 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => navigate('/routine-recommendations', { state: { routineData: routine } })}
+                        onClick={() =>
+                          navigate("/routine-recommendations", {
+                            state: { routineData: routine },
+                          })
+                        }
                         iconName="Eye"
                         iconPosition="left"
                       >
@@ -208,7 +235,9 @@ const SavedRoutinesTab = ({ savedRoutines }) => {
                       <Button
                         variant="default"
                         size="sm"
-                        onClick={() => console.log('Using routine:', routine?.id)}
+                        onClick={() =>
+                          console.log("Using routine:", routine?.id)
+                        }
                         iconName="Play"
                         iconPosition="left"
                       >
